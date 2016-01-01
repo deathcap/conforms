@@ -1,8 +1,8 @@
 'use strict';
 
-function conforms(actual, expected) {
+function conforms(actual, expected, note) {
   if (typeof expected !== typeof actual) {
-    throw new Error('object property "'+name+'" expected '+typeof expected+', but got '+typeof actual);
+    throw new Error('value '+actual+(note?note:' ')+'expected '+typeof expected+', but got '+typeof actual);
   }
 
   // {} and [] both have typeof 'object', so differentiate them here
@@ -29,8 +29,7 @@ function conforms(actual, expected) {
 
       var actual2 = actual[name];
 
-      // TODO: pass object key path when recursing for better error messages
-      conforms(actual2, expected2);
+      conforms(actual2, expected2, ' of property "'+name+'" ');
     } 
   }
 

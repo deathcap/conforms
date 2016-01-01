@@ -91,6 +91,10 @@ test('recursive', function(t) {
     conforms({foo: {}}, {foo: {bar: 'baz'}});
   });
 
+  t.throws(function() {
+    conforms({foo: {bar: 1}}, {foo: {bar: 'baz'}});
+  });
+
   // the inverse is accepted, since the superfluous property not required by the interface is ignored (superset conforms)
   conforms({foo: {bar: 'baz'}}, {foo: {}});
 
