@@ -94,8 +94,19 @@ test('function', function(t) {
 
   conforms(function(){}, function(){});
   conforms(function(){return 1;}, function(){return 2;});
+
+  // parameter names must match
   conforms(function(a){}, function(a){});
-  nconforms(function(a){}, function(b){}); // different parameter names
+  nconforms(function(a){}, function(b){});
+
+  // but extra parameters can be added
+  conforms(function(a,b,c){}, function(a,b,c){});
+  conforms(function(a,b,c){}, function(a,b){});
+  conforms(function(a,b,c){}, function(a){});
+
+  conforms(function(a){}, function(a){});
+  nconforms(function(a){}, function(a,b){});
+  nconforms(function(a){}, function(a,b,c){});
 
   t.end();
 });

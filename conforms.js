@@ -20,11 +20,23 @@ function mtypeof(value) {
     } else {
       return 'number non-integer';
     }
-  } else if (type === 'function') {
-    return 'function('+functionToString(value).params.join(',')+')';
   }
 
   return type;
+}
+
+// Return whether array begins with the elements in prefix
+// TODO: refactor into separate module, thought the starts-with module
+// would do this but it doesn't? and String.prototype.startsWith is of course
+// only for strings -- this is for arrays
+function arrayStartsWith(array, prefix) {
+  if (array.length < prefix.length) return false;
+
+  for (var i = 0; i < prefix.length; ++i) {
+    if (array[i] !== prefix[i]) return false;
+  }
+
+  return true;
 }
 
 function conforms(actual, expected, note) {
@@ -33,6 +45,19 @@ function conforms(actual, expected, note) {
       (note ? ' of property "'+note+'" ' : ' ')+
       'expected '+mtypeof(expected)+', but got '+mtypeof(actual));
   }
+
+  if (typeof(actual) === 'function') {
+    var actualParams = functionToString(actual).params;
+    var expectedParams = functionToString(expected).params;
+    //console.log(actualParams,expectedParams);
+    if (!arrayStartsWith(actualParams, expectedParams)) {
+      throw new Error('value '+actual+
+        (note ? ' of property "'+note+'" ' : ' ')+
+        'expected function('+actualParams.join(',')+'), but got '+
+        'function('+expectedParams.join(',')+')');
+    }
+  }
+
 
   if (typeof(actual) === 'object' && !Array.isArray(actual)) {
     // recurse into object
