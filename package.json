@@ -1,7 +1,7 @@
 {
   "name": "conforms",
   "description": "check whether a value conforms to an interface template",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "conforms.js",
   "repository": {
     "type": "git",
