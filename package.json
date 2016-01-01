@@ -1,0 +1,21 @@
+{
+  "name": "decorum",
+  "description": "",
+  "version": "0.1.0",
+  "main": "decorum.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:deathcap/decorum.git"
+  },
+  "keywords": [
+    "interface"
+  ],
+  "dependencies": {},
+  "scripts": {
+    "start": "node test.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^4.4.0"
+  }
+}
