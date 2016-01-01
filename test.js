@@ -4,6 +4,27 @@ var test = require('tape');
 
 var conforms = require('./');
 
+test('primitive', function(t) {
+
+  conforms(1, 2);         // number
+  conforms('foo', 'bar'); // string
+  conforms(true, false);  // boolean
+  conforms(undefined, undefined);  // undefined
+  conforms({}, {});       // non-array object
+  conforms([], []);       // array object
+  conforms(function(a,b){return a+b}, function(c,d){return c*d});
+
+  t.throws(function() {
+    conforms(42, 'string');
+  });
+
+  t.throws(function() {
+    conforms('string', 42);
+  });
+
+  t.end();
+});
+
 test('duck', function(t) {
 
   var duck = {
@@ -60,5 +81,16 @@ test('group', function(t) {
     conforms({gid: 45, members: [], settings: []}, group);
   });
 
+  t.end();
+});
+
+test('recursive', function(t) {
+
+  /* TODO
+  t.throws(function() {
+    conforms({foo: {bar: 'baz'}}, {foo: {}});
+  });
+  */
+ 
   t.end();
 });
