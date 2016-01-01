@@ -1,22 +1,33 @@
 'use strict';
 
-function conforms(actual, expected, note) {
-  if (typeof expected !== typeof actual) {
-    throw new Error('value '+actual+
-      (note ? ' of property "'+note+'" ' : ' ')+
-      'expected '+typeof expected+', but got '+typeof actual);
+function mtypeof(value) {
+  var type = typeof value;
+
+  if (type === 'object') {
+    // {} and [] both have typeof 'object', so differentiate them here
+    // TODO: check heterogenous array types?
+    if (Array.isArray(value)) {
+      return 'object array';
+    } else {
+      return 'object non-array';
+    }
+  } else if (type === 'number') {
+    if (Number.isInteger(value)) {
+      return 'number integer';
+    } else {
+      return 'number non-integer';
+    }
   }
 
-  // {} and [] both have typeof 'object', so differentiate them here
-  if (Array.isArray(expected) !== Array.isArray(actual)) {
-      throw new Error('object property "'+name+'" expected '+
-        (Array.isArray(expected) ? 'array ' : 'non-array ') +
-        typeof(expected) +
-        ', but got '+
-        (Array.isArray(actual) ? 'array ' : 'non-array ') +
-        typeof(actual));
+  return type;
+}
+
+function conforms(actual, expected, note) {
+  if (mtypeof(expected) !== mtypeof(actual)) {
+    throw new Error('value '+actual+
+      (note ? ' of property "'+note+'" ' : ' ')+
+      'expected '+mtypeof(expected)+', but got '+mtypeof(actual));
   }
-  // TODO: check heterogenous array types?
 
   if (typeof(actual) === 'object' && !Array.isArray(actual)) {
     // recurse into object
