@@ -2,7 +2,9 @@
 
 function conforms(actual, expected, note) {
   if (typeof expected !== typeof actual) {
-    throw new Error('value '+actual+(note?note:' ')+'expected '+typeof expected+', but got '+typeof actual);
+    throw new Error('value '+actual+
+      (note ? ' of property "'+note+'" ' : ' ')+
+      'expected '+typeof expected+', but got '+typeof actual);
   }
 
   // {} and [] both have typeof 'object', so differentiate them here
@@ -29,11 +31,13 @@ function conforms(actual, expected, note) {
 
       var actual2 = actual[name];
 
-      conforms(actual2, expected2, ' of property "'+name+'" ');
+      conforms(actual2, expected2,
+        (note ? note + '.' + name : name));
     } 
   }
 
   // TODO: integers vs floats?
+  // TODO: isndarray?
   // TODO: allow undefined? typeof undefined === 'undefined'
 
 

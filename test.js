@@ -100,6 +100,11 @@ test('recursive', function(t) {
 
   // exact match
   conforms({foo: {bar: 'baz'}}, {foo: {bar: 'baz'}});
+
+  t.throws(function() {
+    // Error: value quux of property "foo.bar.baz" expected number, but got string
+    conforms({foo: {bar: {baz: 'quux'}}}, {foo: {bar: {baz: 1}}});
+  });
  
   t.end();
 });
