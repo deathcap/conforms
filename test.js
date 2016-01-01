@@ -39,7 +39,7 @@ test('duck', function(t) {
     conforms({quack: 1}, duck);
   });
 
-  t.equal(conforms({quack: function() { console.log('quack'); }}, duck), true);
+  conforms({quack: function() { console.log('quack'); }}, duck);
 
   t.end();
 });
@@ -62,13 +62,13 @@ test('group', function(t) {
     conforms({gid: 42, members: 'wrong'}, group);
   });
 
-  t.equal(conforms({
+  conforms({
     gid: 43,
     members: [1,2,3],
     settings: {},
-  }, group), true);
+  }, group);
 
-  t.equal(conforms({ gid: 0, members: [], settings: {}, }, group), true);
+  conforms({ gid: 0, members: [], settings: {}, }, group);
 
 
   // given object, expected array
@@ -86,11 +86,16 @@ test('group', function(t) {
 
 test('recursive', function(t) {
 
-  /* TODO
   t.throws(function() {
-    conforms({foo: {bar: 'baz'}}, {foo: {}});
+    // actual is missing foo.bar
+    conforms({foo: {}}, {foo: {bar: 'baz'}});
   });
-  */
+
+  // the inverse is accepted, since the superfluous property not required by the interface is ignored (superset conforms)
+  conforms({foo: {bar: 'baz'}}, {foo: {}});
+
+  // exact match
+  conforms({foo: {bar: 'baz'}}, {foo: {bar: 'baz'}});
  
   t.end();
 });
