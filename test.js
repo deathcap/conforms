@@ -15,6 +15,7 @@ test('primitive', function(t) {
   conforms({}, {});       // non-array object
   conforms([], []);       // array object
   conforms(function(a,b){return a+b}, function(a,b){return a*b});
+  conforms(undefined, undefined);
 
   nconforms(42, 'string');
   nconforms('string', 42);
