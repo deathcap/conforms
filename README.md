@@ -1,5 +1,7 @@
 # conforms
 
+[![Build Status](https://travis-ci.org/deathcap/conforms.png)](https://travis-ci.org/deathcap/conforms)
+
 Usage:
 
     var conforms = require('conforms');
