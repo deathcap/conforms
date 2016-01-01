@@ -6,7 +6,8 @@ var conforms = require('./');
 
 test('primitive', function(t) {
 
-  conforms(1, 2);         // number
+  conforms(1, 2);         // integer number
+  conforms(1.2, 3.4);     // non-integer number
   conforms('foo', 'bar'); // string
   conforms(true, false);  // boolean
   conforms(undefined, undefined);  // undefined
@@ -20,6 +21,22 @@ test('primitive', function(t) {
 
   t.throws(function() {
     conforms('string', 42);
+  });
+
+  t.throws(function() {
+    conforms({}, []);
+  });
+
+  t.throws(function() {
+    conforms([], {});
+  });
+
+  t.throws(function() {
+    conforms(1, 1.2);
+  });
+
+  t.throws(function() {
+    conforms(1.2, 1);
   });
 
   t.end();
@@ -108,3 +125,5 @@ test('recursive', function(t) {
  
   t.end();
 });
+
+
