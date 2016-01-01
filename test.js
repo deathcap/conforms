@@ -29,14 +29,20 @@ test('primitive', function(t) {
 
 test('duck', function(t) {
 
+  // if it quacks like a duck...
   var duck = {
-    quack: function() {},
+    quack: function(volume) {},
   };
 
+  var obj = {quack: function(volume) { console.log('quack'); }};
+  conforms(obj, duck); // returns true
+
+  conforms({quack: function(volume) { console.log('quack'); }}, duck);
+  conforms({quack: function(volume, direction) { console.log('quack'); }}, duck);
+
+  nconforms({quack: function() { console.log('quack'); }}, duck);
   nconforms({}, duck);
   nconforms({quack: 1}, duck);
-
-  conforms({quack: function() { console.log('quack'); }}, duck);
 
   t.end();
 });

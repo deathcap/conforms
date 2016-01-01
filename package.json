@@ -1,6 +1,6 @@
 {
   "name": "conforms",
-  "description": "",
+  "description": "check whether a value conforms to an interface template",
   "version": "0.1.0",
   "main": "conforms.js",
   "repository": {
@@ -8,7 +8,9 @@
     "url": "git@github.com:deathcap/conforms.git"
   },
   "keywords": [
-    "interface"
+    "interface",
+    "duck",
+    "typing"
   ],
   "dependencies": {
     "function-to-string": "^0.2.0"
