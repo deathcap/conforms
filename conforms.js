@@ -55,4 +55,19 @@ function conforms(actual, expected, note) {
   return true;
 };
 
+function nconforms(actual, expected) {
+  var fail;
+  try {
+    conforms(actual, expected);
+    fail = true;
+  } catch (e) {
+    return true;
+  }
+
+  if (fail) {
+    throw new Error('unexpectedly conforms: '+actual+' to '+expected);
+  }
+};
+
 module.exports = conforms;
+module.exports.nconforms = nconforms;

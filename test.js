@@ -3,6 +3,7 @@
 var test = require('tape');
 
 var conforms = require('./');
+var nconforms = require('./').nconforms;
 
 test('primitive', function(t) {
 
@@ -15,29 +16,12 @@ test('primitive', function(t) {
   conforms([], []);       // array object
   conforms(function(a,b){return a+b}, function(c,d){return c*d});
 
-  t.throws(function() {
-    conforms(42, 'string');
-  });
-
-  t.throws(function() {
-    conforms('string', 42);
-  });
-
-  t.throws(function() {
-    conforms({}, []);
-  });
-
-  t.throws(function() {
-    conforms([], {});
-  });
-
-  t.throws(function() {
-    conforms(1, 1.2);
-  });
-
-  t.throws(function() {
-    conforms(1.2, 1);
-  });
+  nconforms(42, 'string');
+  nconforms('string', 42);
+  nconforms({}, []);
+  nconforms([], {});
+  nconforms(1, 1.2);
+  nconforms(1.2, 1);
 
   t.end();
 });
@@ -48,13 +32,8 @@ test('duck', function(t) {
     quack: function() {},
   };
 
-  t.throws(function() {
-    conforms({}, duck);
-  });
-
-  t.throws(function() {
-    conforms({quack: 1}, duck);
-  });
+  nconforms({}, duck);
+  nconforms({quack: 1}, duck);
 
   conforms({quack: function() { console.log('quack'); }}, duck);
 
@@ -71,13 +50,8 @@ test('group', function(t) {
     settings: {},
   };
 
-  t.throws(function() {
-    conforms({}, group);
-  });
-
-  t.throws(function() {
-    conforms({gid: 42, members: 'wrong'}, group);
-  });
+  nconforms({}, group);
+  nconforms({gid: 42, members: 'wrong'}, group);
 
   conforms({
     gid: 43,
@@ -89,28 +63,20 @@ test('group', function(t) {
 
 
   // given object, expected array
-  t.throws(function() {
-    conforms({gid: 44, members: {}, settings: {}}, group);
-  });
+  nconforms({gid: 44, members: {}, settings: {}}, group);
 
   // given array, expected object
-  t.throws(function() {
-    conforms({gid: 45, members: [], settings: []}, group);
-  });
+  nconforms({gid: 45, members: [], settings: []}, group);
 
   t.end();
 });
 
 test('recursive', function(t) {
 
-  t.throws(function() {
-    // actual is missing foo.bar
-    conforms({foo: {}}, {foo: {bar: 'baz'}});
-  });
+  // actual is missing foo.bar
+  nconforms({foo: {}}, {foo: {bar: 'baz'}});
 
-  t.throws(function() {
-    conforms({foo: {bar: 1}}, {foo: {bar: 'baz'}});
-  });
+  nconforms({foo: {bar: 1}}, {foo: {bar: 'baz'}});
 
   // the inverse is accepted, since the superfluous property not required by the interface is ignored (superset conforms)
   conforms({foo: {bar: 'baz'}}, {foo: {}});
@@ -118,10 +84,8 @@ test('recursive', function(t) {
   // exact match
   conforms({foo: {bar: 'baz'}}, {foo: {bar: 'baz'}});
 
-  t.throws(function() {
-    // Error: value quux of property "foo.bar.baz" expected number, but got string
-    conforms({foo: {bar: {baz: 'quux'}}}, {foo: {bar: {baz: 1}}});
-  });
+  // Error: value quux of property "foo.bar.baz" expected number, but got string
+  nconforms({foo: {bar: {baz: 'quux'}}}, {foo: {bar: {baz: 1}}});
  
   t.end();
 });
