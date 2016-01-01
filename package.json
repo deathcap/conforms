@@ -12,7 +12,7 @@
   ],
   "dependencies": {},
   "scripts": {
-    "start": "node test.js"
+    "test": "node test.js"
   },
   "license": "MIT",
   "devDependencies": {

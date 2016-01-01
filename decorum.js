@@ -1,6 +1,6 @@
 'use strict';
 
-var conforms = function(obj, iface) {
+module.exports = function(obj, iface) {
   var keys = Object.keys(iface);
   for (var i = 0; i < keys.length; ++i) {
     var name = keys[i];
@@ -18,13 +18,6 @@ var conforms = function(obj, iface) {
       throw new Error('object property '+name+' is of type '+typeof actual+', but expected '+typeof expected);
     }
   }
+
+  return true;
 };
-
-var duck = {
-  quack: function() {},
-};
-
-//console.log(conforms({}, duck));
-console.log(conforms({quack: 1}, duck));
-console.log(conforms({quack: function() { console.log('quack'); }}, duck));
-
