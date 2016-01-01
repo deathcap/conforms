@@ -1,11 +1,11 @@
 {
-  "name": "decorum",
+  "name": "conforms",
   "description": "",
   "version": "0.1.0",
-  "main": "decorum.js",
+  "main": "conforms.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:deathcap/decorum.git"
+    "url": "git@github.com:deathcap/conforms.git"
   },
   "keywords": [
     "interface"
