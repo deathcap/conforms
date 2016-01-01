@@ -1,5 +1,8 @@
 'use strict';
 
+var functionToString = require('function-to-string');
+
+// Get a more usefully informative type of a value TODO: refactor into separate module? is there one already?
 function mtypeof(value) {
   var type = typeof value;
 
@@ -17,6 +20,8 @@ function mtypeof(value) {
     } else {
       return 'number non-integer';
     }
+  } else if (type === 'function') {
+    return 'function('+functionToString(value).params.join(',')+')';
   }
 
   return type;
@@ -47,7 +52,6 @@ function conforms(actual, expected, note) {
     } 
   }
 
-  // TODO: integers vs floats?
   // TODO: isndarray?
   // TODO: allow undefined? typeof undefined === 'undefined'
 

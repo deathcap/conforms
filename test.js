@@ -14,7 +14,7 @@ test('primitive', function(t) {
   conforms(undefined, undefined);  // undefined
   conforms({}, {});       // non-array object
   conforms([], []);       // array object
-  conforms(function(a,b){return a+b}, function(c,d){return c*d});
+  conforms(function(a,b){return a+b}, function(a,b){return a*b});
 
   nconforms(42, 'string');
   nconforms('string', 42);
@@ -90,4 +90,12 @@ test('recursive', function(t) {
   t.end();
 });
 
+test('function', function(t) {
 
+  conforms(function(){}, function(){});
+  conforms(function(){return 1;}, function(){return 2;});
+  conforms(function(a){}, function(a){});
+  nconforms(function(a){}, function(b){}); // different parameter names
+
+  t.end();
+});

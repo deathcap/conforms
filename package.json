@@ -11,6 +11,7 @@
     "interface"
   ],
   "dependencies": {
+    "function-to-string": "^0.2.0"
   },
   "scripts": {
     "test": "node test.js"
