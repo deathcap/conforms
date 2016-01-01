@@ -10,7 +10,8 @@
   "keywords": [
     "interface"
   ],
-  "dependencies": {},
+  "dependencies": {
+  },
   "scripts": {
     "test": "node test.js"
   },
